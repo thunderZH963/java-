@@ -164,13 +164,23 @@ obj.wait();
 
 ### 二、Single Threaded Execution模式
 
-#### 1、SharedResource
+### 1、synchronized
+
+#### (1)线程互斥处理（lock/unlock）
+
+**A获得锁-->A wait()-->A进入等待队列,释放锁-->B获得锁-->B notify()-->A退出等待队列，B仍然持有锁-->B释放锁-->A获得锁，正式开始执行**
+
+#### (2)同步处理
+
+**java内存模型确保某个进程进行unlock前所有写入操作对lock的线程可见。**
+
+#### 2、SharedResource
 
 在Single Threaded Execution模式中使用到了SharedResource作用的类
 
 SharedResource可被多个线程访问，主要分为safeMethod和unsafeMethod，该模式就是为了保护unsafeMethod，使其同时只能由一个线程访问。
 
-#### 2、何时使用
+#### 3、何时使用
 
 ##### （1）多线程程序
 
@@ -190,7 +200,7 @@ SharedResource可被多个线程访问，主要分为safeMethod和unsafeMethod�
 
 ​	可以参考java.util.Collections的API文档
 
-#### 3、性能考虑
+#### 4、性能考虑
 
 程序设计性能还是不得不考虑的一个环节
 
